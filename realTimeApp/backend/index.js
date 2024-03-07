@@ -40,23 +40,7 @@ passport.deserializeUser(User.deserializeUser());
 const { register } = require("./controllers/register");
 const { login } = require("./controllers/login");
 const { isLoggedIn } = require("./utils/isLoggedIn");
-// const { send_contribution } = require("./controllers/send_contribution");
-// const { verify_contribution } = require("./controllers/verify_contribution");
-// const { add_new_post } = require("./controllers/add_new_post");
-// const { get_contributions } = require("./controllers/get_contributions");
-// const { get_posts } = require("./controllers/get_posts");
-// const { handle_favorite } = require("./controllers/handle_favorite");
-// const { upgrade_premium } = require("./controllers/upgrade_premium");
-// const { update_post } = require("./controllers/update_post");
-// const { delete_post } = require("./controllers/delete_post");
-// const { get_user } = require("./controllers/get_user");
-// const { scrape_data } = require("./controllers/scrape");
-// const {
-//   accept_discard_contribution,
-// } = require("./controllers/accept_discard_contribution");
-// const {
-//   get_user_contributions,
-// } = require("./controllers/get_user_contributions");
+
 
 // Routes
 app.post("/register", register);
