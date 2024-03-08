@@ -22,29 +22,6 @@ function KanbanBoard() {
     const handleDragEnd = (result) => {
         const { destination, source, draggableId } = result;
 
-        // if (source.droppableId == destination.droppableId) return;
-
-        // //remove drom the source
-
-        // if (source.droppableId == 2) {
-        //     setCompleted(removeItemById(draggableId, completed));
-        // } else {
-        //     setIncomplete(removeItemById(draggableId, incomplete))
-        // }
-
-
-        // //get Item
-
-        // const task = findItemById(draggableId, [...incomplete, ...completed]);
-        
-        // //ADD Item
-
-        // if (destination.droppableId == 2) {
-        //     setCompleted([{...task, completed: !task.completed}, ...completed]);
-        // } else {
-        //     setIncomplete([{...task, completed: !task.completed}, ...incomplete])
-        // }
-
         if (!destination || source.droppableId === destination.droppableId) return;
 
         deletePreviousState(source.droppableId, draggableId);
@@ -111,7 +88,7 @@ function KanbanBoard() {
             <DragDropContext onDragEnd={handleDragEnd}>        
                     <h2 style={{textAlign:"center", color: "#ffff", margin: "50px"}}>KANBAN BOARD</h2>
             
-                    <div
+                    {/* <div
                         style={{
                             display: "flex",
                             justifyContent: "space-between",
@@ -152,9 +129,9 @@ function KanbanBoard() {
                                 </div>
                             )}
                             </Droppable>
-                    </div>
+                    </div> */}
 
-                    {/* <div
+                    <div
                             style={{
                                 display: "flex",
                                 justifyContent: "space-between",
@@ -170,7 +147,7 @@ function KanbanBoard() {
                             <Column title={"DONE"} tasks={completed} id={"2"} />
                             <Column title={"IN REVIEW"} tasks={inReview} id={"3"} />
                             <Column title={"BACKLOG"} tasks={backlog} id={"4"} />
-                    </div> */}
+                    </div>
                 </DragDropContext>
         
                 </>
