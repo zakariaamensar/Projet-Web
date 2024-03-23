@@ -5,7 +5,7 @@ import Task from './Task';
 
 const Container = styled.div`
     background-color: #1c1c1c;
-    border-radius: 2.5px;
+    border-radius: 8px;
     margin: 10px;
     width: 300px;
     height: 500px;
@@ -34,7 +34,7 @@ export default function Column({title, tasks, id}) {
     <Container className="column">
     <Title
         style={{
-            backgroundColor: "lightblue",
+            backgroundColor: "#fff",
             position: "sticky",
             top: "0",
         }}>

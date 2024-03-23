@@ -86,7 +86,7 @@ function KanbanBoard() {
             <Header/>
             
             <DragDropContext onDragEnd={handleDragEnd}>        
-                    <h2 style={{textAlign:"center", color: "#ffff", margin: "50px"}}>KANBAN BOARD</h2>
+                    <h2 style={{textAlign:"center", color: "#ffff", margin: "25px"}}>KANBAN BOARD</h2>
             
                     {/* <div
                         style={{
@@ -138,6 +138,7 @@ function KanbanBoard() {
                                 alignItems: "center",
                                 flexDirection: "row",
                                 padding: "20px",
+                                
                                 
                                 // width: "1300px",
                                 // margin: "0 auto"

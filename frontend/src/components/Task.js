@@ -1,7 +1,7 @@
 import React from 'react'
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
-
+import { FaRegEdit } from "react-icons/fa";
 import {Avatar} from "antd";
 
 const Container = styled.div`
@@ -12,7 +12,7 @@ const Container = styled.div`
     min-height: 120px;
     margin-left: 10px;
     margin-right: 10px;
-    background-color: #4c4c4c;
+    background-color: ${(props) => bgcolorChange(props)};
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -29,14 +29,15 @@ const Icons = styled.div`
 // ${(props) => bgcolorChange(props)}
 function bgcolorChange(props) {
     return props.isDragging
-        ? "lightgreen"
-        : props.isDraggable
-            ? props.isBacklog
-                ? "#F2D7D5"
-                : "#DCDCDC"
-            : props.isBacklog
-                ? "#F2D7D5"
-                : "#EAF4FC";
+        ? "#242424" : '#4c4c4c'
+
+        // : props.isDraggable
+        //     ? props.isBacklog
+        //         ? "#F2D7D5"
+        //         : "#DCDCDC"
+        //     : props.isBacklog
+        //         ? "#F2D7D5"
+        //         : "#EAF4FC";
 }
 
 export default function Task({ task, index }) {
@@ -49,27 +50,32 @@ export default function Task({ task, index }) {
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
           >
-            <div style={{ display: "flex", justifyContent: "start", padding: 2 }}>
-              <span>
+            <div  style={{ display: "flex", justifyContent: "start", padding: 2 }}>
+              <span className='flex justify-between'>
                 <small>
                   #{task.id}
                   {"  "}
                 </small>
+                 <FaRegEdit/>                
               </span>
             </div>
   
             <div style={{ display: "flex", justifyContent: "center", padding: 2 }}>
               <TextContent>{task.title}</TextContent>
+            </div>  
+
+
+            <div className='flex justify-between items-end p-2'>
+              {/* <a className='text-white' href='#comments'>comments</a> */}
+              <Icons>
+                <div>
+                  <Avatar
+                    onClick={() => console.log(task)}
+                    src={"https://joesch.moe/api/v1/random?key=" + task.id}
+                  />
+                </div>
+              </Icons>
             </div>
-  
-            <Icons>
-              <div>
-                <Avatar
-                  onClick={() => console.log(task)}
-                  src={"https://joesch.moe/api/v1/random?key=" + task.id}
-                />
-              </div>
-            </Icons>
             {provided.placeholder}
           </Container>
         )}
