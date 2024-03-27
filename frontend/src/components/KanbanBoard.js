@@ -86,50 +86,7 @@ function KanbanBoard() {
             <Header/>
             
             <DragDropContext onDragEnd={handleDragEnd}>        
-                    <h2 style={{textAlign:"center", color: "#ffff", margin: "25px"}}>KANBAN BOARD</h2>
-            
-                    {/* <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            flexDirection: "row",
-                            // width: "1300px",
-                            // margin: "0 auto"
-                        }}>
-                            <Droppable droppableId="1">
-                            {(provided, snapshot) => (
-                                <div ref={provided.innerRef} {...provided.droppableProps}>
-                                <Column title={"TO DO"} tasks={incomplete} id={"1"} />
-                                {provided.placeholder}
-                                </div>
-                            )}
-                            </Droppable>
-                            <Droppable droppableId="2">
-                            {(provided, snapshot) => (
-                                <div ref={provided.innerRef} {...provided.droppableProps}>
-                                <Column title={"DONE"} tasks={completed} id={"2"} />
-                                {provided.placeholder}
-                                </div>
-                            )}
-                            </Droppable>
-                            <Droppable droppableId="3">
-                            {(provided, snapshot) => (
-                                <div ref={provided.innerRef} {...provided.droppableProps}>
-                                <Column title={"IN REVIEW"} tasks={inReview} id={"3"} />
-                                {provided.placeholder}
-                                </div>
-                            )}
-                            </Droppable>
-                            <Droppable droppableId="4">
-                            {(provided, snapshot) => (
-                                <div ref={provided.innerRef} {...provided.droppableProps}>
-                                <Column title={"BACKLOG"} tasks={backlog} id={"4"} />
-                                {provided.placeholder}
-                                </div>
-                            )}
-                            </Droppable>
-                    </div> */}
+                    <h2 style={{textAlign:"center", color: "#ffff", margin: "25px"}}>KANBAN BOARD</h2>        
 
                     <div
                             style={{
@@ -155,6 +112,7 @@ function KanbanBoard() {
 
   )
 }
+
 
 export default KanbanBoard
 

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { FaRegEdit } from "react-icons/fa";
 import {Avatar} from "antd";
+import EditTaskModal from './Modals/EditTaskModal';
 
 const Container = styled.div`
     border-radius: 10px;
@@ -17,6 +18,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    
 `;
 
 const TextContent = styled.div``;
@@ -41,23 +43,36 @@ function bgcolorChange(props) {
 }
 
 export default function Task({ task, index }) {
+
+  const [showMyEditModal, setShowMyEditModal] =useState(false);
+
+  const handleToggleModal = () => {
+    setShowMyEditModal(!showMyEditModal);
+  };
+  
     return (
+
+      <>
       <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
         {(provided, snapshot) => (
           <Container
+            className='flex overflow-auto'
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
+            onClick={() => {setShowMyEditModal(true)}}
           >
             <div  style={{ display: "flex", justifyContent: "start", padding: 2 }}>
-              <span className='flex justify-between'>
+              <div className='flex justify-between'>
                 <small>
                   #{task.id}
                   {"  "}
                 </small>
-                 <FaRegEdit/>                
-              </span>
+                <small>
+                  <FaRegEdit/>  
+                </small>                      
+              </div>
             </div>
   
             <div style={{ display: "flex", justifyContent: "center", padding: 2 }}>
@@ -75,11 +90,22 @@ export default function Task({ task, index }) {
                   />
                 </div>
               </Icons>
+              <a className='text-sm text-slate-300'>comments</a>
             </div>
+
             {provided.placeholder}
           </Container>
         )}
       </Draggable>
+
+      {showMyEditModal && (
+        <EditTaskModal
+          task={task}
+          visible={showMyEditModal}
+          onClose={(e) => {setShowMyEditModal(false)}}
+        />
+      )}
+      </>
     );
   }
   

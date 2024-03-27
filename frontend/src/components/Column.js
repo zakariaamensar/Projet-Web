@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import Task from './Task';
+import AddTaskModal from './Modals/AddTaskModal';
 
 const Container = styled.div`
     background-color: #1c1c1c;
@@ -30,34 +31,48 @@ const TaskList = styled.div`
 `;
 
 export default function Column({title, tasks, id}) {
-  return (
-    <Container className="column">
-    <Title
-        style={{
-            backgroundColor: "#fff",
-            position: "sticky",
-            top: "0",
-        }}>
 
-        {title}
-    </Title>
-    <Droppable droppableId={id}>
-        {(provided, snapshot) => (
-            <TaskList
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                // isdraggingover={snapshot.isDraggingOver}
-                
-            >
-        
-                {tasks.map((task, index) => (
-                    <Task key={index} index={index} task={task} />
-                ))} 
-                
-                {provided.placeholder}
-            </TaskList>
-        )}
-    </Droppable>
-</Container>
+    const [showMyAddModal, setShowMyAddModal] =useState(false);
+
+  return (
+    
+  <>
+    <Container className="column">
+        <Title
+            style={{
+                backgroundColor: "#fff",
+                position: "sticky",
+                top: "0",
+            }}>
+
+            {title}
+        </Title>
+        <Droppable droppableId={id}>
+            {(provided, snapshot) => (
+                <TaskList
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    // isdraggingover={snapshot.isDraggingOver}
+                    
+                >        
+                    {tasks.map((task, index) => (
+                        <Task key={index} index={index} task={task} />
+                    ))} 
+                    
+                    {provided.placeholder}
+                </TaskList>
+            )}
+        </Droppable>
+        <div className='felx justify-center items-center bg-slate-300 text-black rounded-md  m-2 '>
+            <button 
+                onClick={() => {setShowMyAddModal(true)}}
+                className='items-center  px-10 py-1'
+            >+ Add Task</button>
+        </div>
+    </Container>
+    <AddTaskModal onClose={(e) => {setShowMyAddModal(false)}} visible={showMyAddModal}/>
+  </>   
+   
+
   )
 }
