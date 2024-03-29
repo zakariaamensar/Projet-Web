@@ -17,7 +17,7 @@ const jwt=require('jsonwebtoken');
 dotenv.config();
 
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: 'http://localhost:3000',
     credentials: true, // Autoriser l'envoi de cookies avec les requêtes
 };
 
@@ -44,6 +44,7 @@ app.post('/users/login',async (req,res)=>{
         res.status(500).json({ message: error.message });
     }
 })
+
 app.post('/users/register',async (req,res)=>{
     try {
         const { name, email, password } = req.body;
