@@ -11,20 +11,20 @@ function ProjectCard({ projects, deleteProject, editProject }) {
         const statusColor = getStatusColor(project.status);
 
         return (
-          <tr key={idx} className="hover:bg-gray-300">
+          <tr key={project?._id} className="hover:bg-gray-300">
             <td className="p-3"><Link to={"/kanban"}>{project.title}</Link></td>
-            <td className="w-full p-3 overflow-hidden overflow-ellipsis flex justify-center">{project.description}</td>
+            <td className="w-full p-3 overflow-hidden overflow-ellipsis flex justify-center">{project.descriptionProjet}</td>
             <td className="p-3">
               <span className={`label ${statusColor} p-1 rounded-lg`}>{statusText}</span>
             </td>
             <td className="p-3 flex justify-between">
               <BsFillTrashFill
                 className="delete-btn cursor-pointer text-red-600"
-                onClick={() => deleteProject(idx)}
+                onClick={() => deleteProject(project?._id)}
               />
               <BsFillPencilFill
                 className="edit-btn cursor-pointer text-blue-600"
-                onClick={() => editProject(idx)}
+                onClick={() => editProject(project?._id)}
               />
             </td>
           </tr>

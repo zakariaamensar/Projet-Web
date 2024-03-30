@@ -1,43 +1,71 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProjectCard from '../components/ProjectCard'
 import AddProjectModal from '../components/Modals/AddProjectModal';
 import Header from '../components/Header/Header';
+import { useUser } from '../context';
 
 
 
 function Projects() {
     const [showMyAddModal, setShowMyAddModal] =useState(false);
 
-    const [projects, setProjects] = useState([
-        {
-          title: "First Project",
-          description: "this is the first project",
-          status: "Done",
-        },
-        {
-          title: "Second project",
-          description: "this is the second project",
-          status: "To Do",
-        },
-        {
-          title: "3rd Project",
-          description: "this is the third project",
-          status: "In Progress",
-        },
-      ]);
+    const [projects, setProjects] = useState([]);
+    const { user, setUser } = useUser();
 
       const [searchInput, setSearchInput] = useState("");
+
+      useEffect(() => {
+        // Fonction pour récupérer les projets
+        const fetchProjects = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/Project/${user?.userId}`,{
+                  credentials:"include"
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to fetch projects');
+                }
+                const data = await response.json();
+                setProjects(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        // Appel de la fonction pour récupérer les projets
+        fetchProjects();
+    }, []);
 
       const handleSearchChange = (event) => {
         setSearchInput(event.target.value);
       };
 
       const filteredProjects = projects.filter((project) =>
-        project.title.toLowerCase().includes(searchInput.toLowerCase()) || project.description.toLowerCase().includes(searchInput.toLowerCase())
+        project.title.toLowerCase().includes(searchInput.toLowerCase()) || project.descriptionProjet.toLowerCase().includes(searchInput.toLowerCase())
       );
 
-      const handleDeleteProject = (targetIndex) => {
-        setProjects(projects.filter((_, idx) => idx !== targetIndex));
+      const handleDeleteProject =async (targetIndex) => {
+        try {
+          const response = await fetch(`http://localhost:8080/Project/${targetIndex}`, {
+              method: 'DELETE',
+              credentials: 'include',
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          });
+  
+          // Vérifie si la requête a réussi
+          if (response.ok) {
+              // Supprime le projet de l'état local
+              setProjects(prevProjects => prevProjects.filter((projet, idx) => projet?._id !== targetIndex));
+          } else {
+              // Récupère les données d'erreur
+              const errorData = await response.json();
+              throw new Error(errorData.error);
+          }
+      } catch (error) {
+          console.error('Error deleting project:', error);
+          // Gérer l'erreur ici
+      }
       };
     
       const handleEditProject = (idx) => {
@@ -84,7 +112,7 @@ function Projects() {
           </tbody>
         </table>
       </div>
-      <AddProjectModal onClose={(e) => {setShowMyAddModal(false)}} visible={showMyAddModal}/>
+      <AddProjectModal onClose={(e) => {setShowMyAddModal(false)}} setProjects={setProjects} visible={showMyAddModal}/>
     </div>
   )
 }

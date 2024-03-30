@@ -1,6 +1,7 @@
 const Group = require("../model/Group");
 const Project = require("../model/Project");
 const User = require("../model/User");
+const { v4: uuidv4 } = require('uuid');
 
 module.exports={
     // createProject:async (req,res)=>{
@@ -62,7 +63,8 @@ module.exports={
                     res.status(404).json({message:"le group n'apartienn pas a se user et aussi cette user n'apartienne pas au memeber de cette group"})
                 }
             }else{
-                group=await Group.create({name:`group of project ${title}`,createdBy});
+                const invitationToken = uuidv4();
+                group=await Group.create({name:`group of project ${title}`,invitationToken:invitationToken,createdBy});
                 user.groups.push(group._id);
             }
             const project=await Project.create({title,descriptionProjet,createdBy,group:group._id});
@@ -76,6 +78,25 @@ module.exports={
             res.status(201).json(project)
         } catch (error) {
             res.status(500).json({error:error.message});
+        }
+    },
+    deleteProject:async (req,res)=>{
+        const projectId = req.params.projectId;
+        try {
+            // Supprime le projet de la base de données
+            const deletedProject = await Project.findByIdAndDelete(projectId);
+    
+            // Vérifie si le projet a été trouvé et supprimé avec succès
+            if (!deletedProject) {
+                return res.status(404).json({ message: 'Project not found' });
+            }
+    
+            // Répond avec un message de succès
+            res.status(200).json({ message: 'Project deleted successfully' });
+        } catch (error) {
+            // Gère les erreurs et renvoie un message d'erreur approprié
+            console.error(error);
+            res.status(500).json({ error: 'Failed to delete project' });
         }
     }
 

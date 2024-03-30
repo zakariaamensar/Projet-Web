@@ -1,24 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useUser } from '../../context';
 
-function AddProjectModal({visible, onClose}) {
+function AddProjectModal({visible, onClose,setProjects}) {
+    const { user, setUser } = useUser();
+    const [error, setError] = useState(null);
+
     if (!visible) return null;
 
     const handleOnClose = (e) => {
       if (e.target.id === "container") onClose();
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit =async (e) => {
       e.preventDefault();
       const formData = new FormData(e.target);
       const projectData = {
           title: formData.get('ProjectTitle'),
-          description: formData.get('ProjectDesc'),
+          descriptionProjet: formData.get('ProjectDesc'),
           status: formData.get('status'),
       };
       console.log('New Project Data:', projectData);
-      
-      onClose(); // Close the modal after submitting
-  }
+
+      try {
+        const response = await fetch('http://localhost:8080/Project/'+user?.userId , {
+            method: 'POST',
+            credentials:"include",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(projectData),
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message);
+        }
+        const data=await response.json()
+        setProjects(prev=>[...prev,data]);
+        onClose(); // Fermer le modal après avoir soumis avec succès
+        } catch (error) {
+            setError(error.message); // En cas d'erreur, afficher le message d'erreur
+        }
+    }
+
     return (
       <div 
         id='container' 
