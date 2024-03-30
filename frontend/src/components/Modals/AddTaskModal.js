@@ -37,7 +37,8 @@ function AddTaskModal({visible, onClose}) {
       const data = await response.json();
       console.log(data);
       onClose(); // Fermer le modal après avoir soumis avec succès
-      } catch (error) {
+      window.location.reload();  
+    } catch (error) {
           setError(error.message); // En cas d'erreur, afficher le message d'erreur
       }
   }

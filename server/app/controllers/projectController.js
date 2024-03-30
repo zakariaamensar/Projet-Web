@@ -65,7 +65,7 @@ module.exports={
                 }
             }else{
                 const invitationToken = uuidv4();
-                group=await Group.create({name:`group of project ${title}`,invitationToken:invitationToken,createdBy});
+                group=await Group.create({name:`group of project ${title}`,invitationToken:invitationToken,createdBy,users:[createdBy]});
                 user.groups.push(group._id);
             }
             const project=await Project.create({title,descriptionProjet,createdBy,group:group._id});

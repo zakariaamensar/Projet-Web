@@ -3,24 +3,12 @@ import React, { useEffect, useState } from 'react';
 import {Avatar} from "antd";
 import CommentCard from '../CommentCard';
 
-function EditTaskModal({ task, onSave,visible, onClose }) {
-
-    
+function EditTaskModal({ task,visible, onClose }) {
 
     const [users, setUsers] = useState([]);
-    const commentsData = [
-        {
-            content:"Your comment content",
-            createdAt: "Yesterday at 4:00pm",
-            author:"Abdellah",
-            task:""
-        },
-    ];
-    // for update task section 
-    // const [id, setId] = useState(task.id);
-    const id = task.id;
+    const id = task?._id;
     const [title, setTitle] = useState(task.title);
-    const [description, setDescription] = useState("this task does not have any description");
+    const [description, setDescription] = useState(task.description);
     const [status, setStatus] = useState(task.completed);
     const [assignedUser, setAssignedUser] = useState("");
 
@@ -41,32 +29,59 @@ function EditTaskModal({ task, onSave,visible, onClose }) {
     }, []);
 
     useEffect(() => {
-        if (task.id) {
+        if (task._id) {
             const user = users.find(user => user.id === task.id);
             if (user) {
                 setAssignedUser(user.name);
             }
         }
-    }, [assignedUser,task.id, users]);
-    
+    }, [assignedUser,task._id, users]);
 
     // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit =async (e) => {
         e.preventDefault();
-        const updatedTask = {
-            ...task,
-            title,
-            description,
-            status,
-            assignedUser,
-        };
-        onSave(updatedTask);
+        try {
+            const updatedTask = {
+                title,
+                description,
+                status,
+                assignedUser,
+            };
+            const response = await fetch(`http://localhost:8080/tasks/${task._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(updatedTask),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to update task');
+            }
+            window.location.reload();
+            onClose();
+        } catch (error) {
+            console.error('Error updating task:', error);
+        }
+        
     };
 
-    const handleDeleteTask = (e) => {
+    const handleDeleteTask =async (e) => {
         e.preventDefault()
-
-        onClose(); //close the model after deleting the task!
+        e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:8080/tasks/${task._id}`, {
+                method: 'DELETE',
+                credentials: "include"
+            });
+            if (!response.ok) {
+                throw new Error('Failed to delete task');
+            }
+            onClose(); //close the model after deleting the task!
+            window.location.reload()
+        } catch (error) {
+            console.error('Error deleting task:', error);
+        }
     }
 
     const handleAddComment = (e) => {
@@ -84,7 +99,8 @@ function EditTaskModal({ task, onSave,visible, onClose }) {
       const handleOnClose = (e) => {
         if (e.target.id === "container") onClose();
       }
-  
+
+    
 
 
     if (!visible) return null;
