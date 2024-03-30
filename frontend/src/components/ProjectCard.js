@@ -36,7 +36,7 @@ function ProjectCard({ projects, deleteProject }) {
             <td className="p-3 flex justify-between">
               <BsFillTrashFill
                 className="delete-btn cursor-pointer text-red-600"
-                onClick={() => deleteProject(idx)}
+                onClick={() => deleteProject(project?._id)}
               />
               <BsFillPencilFill
                 className="edit-btn cursor-pointer text-blue-600"
@@ -44,6 +44,7 @@ function ProjectCard({ projects, deleteProject }) {
               />
             </td>
           </tr>
+          
           {showMyEditModal && (
                       <UpdateProjectModal 
                       project={project}

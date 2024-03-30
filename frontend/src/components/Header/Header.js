@@ -1,6 +1,7 @@
 import React from 'react'
 import './Header.css'
 import { Link } from 'react-router-dom'
+import DropDown from './DropDown'
 
 
 export default function Header() {
@@ -12,6 +13,10 @@ export default function Header() {
         <a href="#whiteboard"></a> */}
         <Link to={"/projects"}>Projects</Link>
         <Link to={"/whiteboard"}>WhiteBoard</Link>
+
+        <div className='mt-1 absolute right-2'>
+          <DropDown/>  
+        </div> 
         
   </div>
 </div>

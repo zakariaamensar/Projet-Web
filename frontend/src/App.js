@@ -6,34 +6,50 @@ import KanbanBoard from "./components/KanbanBoard";
 import Login from "./components/Login/Login";
 import EditTaskModal from "./components/Modals/EditTaskModal";
 import styles from "./index.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Projects from "../src/pages/Projects";
 import{BrowserRouter as Router, Routes,Route} from 'react-router-dom'
 import Header from "./components/Header/Header";
+import { useUser } from "./context";
+import Cookies from "js-cookie";
+import {jwtDecode} from "jwt-decode"
+import { useNavigate } from "react-router";
+import { Navigate } from "react-router-dom";
 
+const ProtectedRoute = ({ children }) => {
+  const navigate=useNavigate();
+  
+  const { user, setUser } = useUser();
+  useEffect(() => {
+    const token = Cookies.get('jwt');
+    if (!token ) {
+      navigate('/login');
+    } else if (JSON.stringify(user) === '{}') {
+      try {
+        const decoded = jwtDecode(token);
+        setUser(decoded);
+      } catch (error) {
+        setUser({});
+      }
+    }
+  }, [user, setUser]);
+  if (user.name) {
+    return children;
+  } else {
+    return null;
+  }
+}
 
 function App() {
   
-
-
-  const task = {
-    title: 'Task Title',
-    description: 'Task Description',
-    status: 'completed',
-    assignedUser: 'John Doe',
-};
   return (
     <Router>
-      {/* <KanbanBoard/> */}
-      {/* <Login/> */}
-      
       <Routes>
-        <Route exact path='/projects' element={ <Projects/> }/>
-        <Route exact path="/kanban" element={<KanbanBoard/>}/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Navigate to="/projects" />} />
+        <Route exact path='/projects' element={<ProtectedRoute> <Projects/> </ProtectedRoute>}/>
+        <Route exact path="/kanban/:projectId" element={<ProtectedRoute> <KanbanBoard/> </ProtectedRoute>}/>
       </Routes>
-     
-   
-     {/* <EditTaskModal task={task} /> */}
     </Router>
 
   );

@@ -50,7 +50,7 @@ export default function Task({ task, index }) {
     return (
 
       <>
-      <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
+      <Draggable draggableId={`${task?._id}`} key={task?._id} index={index}>
         {(provided, snapshot) => (
           <Container
             className='flex overflow-auto'
@@ -63,7 +63,6 @@ export default function Task({ task, index }) {
             <div  style={{ display: "flex", justifyContent: "start", padding: 2 }}>
               <div className='flex justify-between'>
                 <small>
-                  #{task.id}
                   {"  "}
                 </small>
                 <small>
@@ -73,7 +72,7 @@ export default function Task({ task, index }) {
             </div>
   
             <div style={{ display: "flex", justifyContent: "center", padding: 2 }}>
-              <TextContent>{task.title}</TextContent>
+              <TextContent>{task?.title}</TextContent>
             </div>  
 
 
@@ -83,7 +82,7 @@ export default function Task({ task, index }) {
                 <div>
                   <Avatar
                     onClick={() => console.log(task)}
-                    src={"https://joesch.moe/api/v1/random?key=" + task.id}
+                    src={"https://joesch.moe/api/v1/random?key=" + 1}
                   />
                 </div>
               </Icons>
