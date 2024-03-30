@@ -12,7 +12,7 @@ function ProjectCard({ projects, deleteProject, editProject }) {
 
         return (
           <tr key={project?._id} className="hover:bg-gray-300">
-            <td className="p-3"><Link to={"/kanban"}>{project.title}</Link></td>
+            <td className="p-3"><Link to={`/kanban/${project._id}`}>{project.title}</Link></td>
             <td className="w-full p-3 overflow-hidden overflow-ellipsis flex justify-center">{project.descriptionProjet}</td>
             <td className="p-3">
               <span className={`label ${statusColor} p-1 rounded-lg`}>{statusText}</span>

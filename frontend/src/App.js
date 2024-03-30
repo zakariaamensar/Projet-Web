@@ -46,7 +46,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route exact path='/projects' element={<ProtectedRoute> <Projects/> </ProtectedRoute>}/>
-        <Route exact path="/kanban" element={<ProtectedRoute> <KanbanBoard/> </ProtectedRoute>}/>
+        <Route exact path="/kanban/:projectId" element={<ProtectedRoute> <KanbanBoard/> </ProtectedRoute>}/>
       </Routes>
     </Router>
 

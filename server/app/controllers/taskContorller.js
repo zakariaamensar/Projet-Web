@@ -21,7 +21,8 @@ module.exports={
                     title,
                     description,
                     assignedTo,
-                    dueDate
+                    dueDate,
+                    project:projectId
                 });
                 project.tasks.push(newTask._id);
                 user.tasks.push(newTask._id)

@@ -1,5 +1,6 @@
 const Group = require("../model/Group");
 const Project = require("../model/Project");
+const Task = require("../model/Task");
 const User = require("../model/User");
 const { v4: uuidv4 } = require('uuid');
 
@@ -98,6 +99,26 @@ module.exports={
             console.error(error);
             res.status(500).json({ error: 'Failed to delete project' });
         }
+    },
+    getTaskParProject:async(req,res)=>{
+        const projectId = req.params.projectId;
+
+        try {
+            // Trouver le projet par ID
+            const project = await Project.findById(projectId);
+        
+            if (!project) {
+              return res.status(404).json({ message: 'Projet non trouvé' });
+            }
+        
+            // Récupérer les tâches associées à ce projet
+            const tasks = await Task.find({ project: projectId });
+        
+            res.status(200).json(tasks);
+          } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Erreur lors de la récupération des tâches du projet' });
+          }
     }
 
 }
