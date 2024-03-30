@@ -53,9 +53,7 @@ function Projects() {
               }
           });
   
-          // Vérifie si la requête a réussi
           if (response.ok) {
-              // Supprime le projet de l'état local
               setProjects(prevProjects => prevProjects.filter((projet, idx) => projet?._id !== targetIndex));
           } else {
               // Récupère les données d'erreur
