@@ -65,7 +65,7 @@ function EditTaskModal({ task, onSave,visible, onClose }) {
 
     const handleDeleteTask = (e) => {
         e.preventDefault()
-        
+
         onClose(); //close the model after deleting the task!
     }
 
@@ -91,7 +91,7 @@ function EditTaskModal({ task, onSave,visible, onClose }) {
 
     return (
         <div  
-            className='fixed inset-0 z-50 bg-black bg-opacity-40 backdrop-blur-sm grid grid-cols-2 gap-0'
+            className='block fixed inset-0 z-50 bg-black bg-opacity-30 backdrop-blur-sm grid grid-cols-2 gap-0'
             onClick={handleOnClose}
         >
             <section id='container' className="updateTask flex flex-col justify-center items-center h-screen text-white">

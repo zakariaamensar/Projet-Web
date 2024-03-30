@@ -11,7 +11,7 @@ function KanbanBoard() {
     const [inReview, setInReview] = useState([]);
 
     useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/todos")
+        fetch("https://jsonplaceholder.typicode.com/todos?_limit=10")
             .then((response) => response.json())
             .then((json) => {
                 setCompleted(json.filter((task) => task.completed));
