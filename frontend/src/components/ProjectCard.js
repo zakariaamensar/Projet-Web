@@ -7,7 +7,6 @@ function ProjectCard({ projects, deleteProject }) {
 
   const [showMyEditModal, setShowMyEditModal] =useState(false);
 
-
   const handleEditProject = (idx) => {
    setShowMyEditModal(true)
 
@@ -26,16 +25,11 @@ function ProjectCard({ projects, deleteProject }) {
         const statusColor = getStatusColor(project.status);
 
         return (
-<<<<<<< HEAD
           <>
-          <tr key={idx} className="hover:bg-gray-300">
-            <td className="p-3"><Link to={"/kanban"}>{project.title}</Link></td>
-            <td className="w-full p-3 overflow-hidden overflow-ellipsis flex justify-center">{project.description}</td>
-=======
           <tr key={project?._id} className="hover:bg-gray-300">
             <td className="p-3"><Link to={`/kanban/${project?._id}`}>{project.title}</Link></td>
             <td className="w-full p-3 overflow-hidden overflow-ellipsis flex justify-center">{project.descriptionProjet}</td>
->>>>>>> 0403e028263745bad6c8f7db5ff74c8e49dbc7ca
+
             <td className="p-3">
               <span className={`label ${statusColor} p-1 rounded-lg`}>{statusText}</span>
             </td>
@@ -50,7 +44,6 @@ function ProjectCard({ projects, deleteProject }) {
               />
             </td>
           </tr>
-          
           {showMyEditModal && (
                       <UpdateProjectModal 
                       project={project}
@@ -63,21 +56,21 @@ function ProjectCard({ projects, deleteProject }) {
         );
         
       })}
-      </>
+    </>
   )
 }
 
 function getStatusColor(status) {
-    switch (status) {
-      case 'In Progress':
-        return 'bg-Orange';
-      case 'Done':
-        return 'bg-green-600';
-      case 'To Do':
-        return 'bg-blue';
-      default:
-        return 'bg-blue';
-    }
+  switch (status) {
+    case 'In Progress':
+      return 'bg-Orange';
+    case 'Done':
+      return 'bg-green-600';
+    case 'To Do':
+      return 'bg-blue';
+    default:
+      return 'bg-blue';
   }
+}
 
 export default ProjectCard
