@@ -56,6 +56,13 @@ function DropDown() {
                 {isOpen && (
                     <div className=" flex flex-col absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden bg-[#3D3D3D] rounded-md shadow-xl">
                         <a href="#" className="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <Icons>
+                      <div>
+                        <Avatar
+                          src={"https://joesch.moe/api/v1/random?key=" + 1}
+                        />
+                      </div>
+                    </Icons>
     
                             <div className="mx-1">
                                 <h1 className="text-sm font-semibold text-gray-700 dark:text-gray-200">{user?.name}</h1>

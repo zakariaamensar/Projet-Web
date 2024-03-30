@@ -22,7 +22,7 @@ function KanbanBoard() {
             // Filter tasks based on their status
             setIncomplete(json.filter((task) => task.etatStatus === "TODO"));
             setCompleted(json.filter((task) => task.etatStatus === "DONE"));
-            setInReview(json.filter((task) => task.etatStatus === "IN REVIEW"));
+            setInReview(json.filter((task) => task.etatStatus === "INREVIEW"));
             setBacklog(json.filter((task) => task.etatStatus === "BACKLOG"));
         });
     }, []);

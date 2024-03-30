@@ -85,7 +85,7 @@ export default function Task({ task, index }) {
                 <div>
                   <Avatar
                     onClick={() => console.log(task)}
-                    src={"https://joesch.moe/api/v1/random?key=" + task?._id}
+                    src={"https://joesch.moe/api/v1/random?key=" + 1}
                   />
                 </div>
               </Icons>
