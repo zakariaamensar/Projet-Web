@@ -1,14 +1,17 @@
 import React from 'react'
 import './Header.css'
+import { Link } from 'react-router-dom'
 
 
 export default function Header() {
   return (
     <div className="header">
-        <a href="#default" className="logo">flow</a>
-        <div className="header-right">
-        <a className="active" href="#projects">projects</a>
-        <a href="#whiteboard">whiteboard</a>
+        <Link to={"/projects"} className='logo'>flow</Link>
+        <div className="header-right flex justify-center">
+        {/* <a className="active" href="#projects"><Link to={"/projects"}>Projects</Link></a>
+        <a href="#whiteboard"></a> */}
+        <Link to={"/projects"}>Projects</Link>
+        <Link to={"/whiteboard"}>WhiteBoard</Link>
         
   </div>
 </div>

@@ -7,6 +7,8 @@ module.exports = {
     extend: {
       colors: {
         MyGray: 'rgb(61, 61, 61)',
+        Orange: '#c2410c',
+        blue: '#2563eb'
       },
     },
   },
