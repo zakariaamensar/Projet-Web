@@ -6,14 +6,12 @@ const Project = require('../model/Project');
 module.exports={
     addTask:async (req,res)=>{
         try {
-            const { title, description, assignedTo, dueDate, projectId } = req.body;
-            if(!assignedTo){
-                assignedTo=req.user.userId
-            }
+            const { title, description, dueDate, projectId } = req.body;
+            let assignedTo = req.body.assignedTo || req.user.userId;
             const project=await Project.findById(projectId).populate('group');
             const user=await User.findById(assignedTo);
-            if(!project){
-                res.json(404).json({message:"project not found"});
+            if (!project) {
+                res.status(404).json({ message: "project not found" });
             }
             const group=project.group;
             if(group.users.includes(assignedTo)){
@@ -32,7 +30,7 @@ module.exports={
                 res.status(201).json(newTask)
             }
         } catch (error) {
-            console.error(err);
+            console.error(error);
             res.status(500).json({ message: 'Erreur lors de la création de la tâche' });
         }
     },

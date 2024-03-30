@@ -1,23 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 function AddTaskModal({visible, onClose}) {
+  const { projectId } = useParams();
+  const [error, setError] = useState(null);
     if (!visible) return null;
 
     const handleOnClose = (e) => {
       if (e.target.id === "container") onClose();
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit =async (e) => {
       e.preventDefault();
       const formData = new FormData(e.target);
       const taskData = {
-          title: formData.get('TaskTitle'),
-          description: formData.get('TaskDesc'),
-          status: formData.get('status'),
-      };
-      console.log('New Task Data:', taskData);
-      
-      onClose(); // Close the modal after submitting
+        title: formData.get('TaskTitle'),
+        description: formData.get('TaskDesc'),
+        dueDate: formData.get('dueDate'), // Ajoutez cette ligne pour récupérer la date d'échéance
+        projectId:projectId
+    };
+    try {
+      const response = await fetch('http://localhost:8080/tasks', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(taskData),
+      });
+
+      if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message);
+      }
+    
+      const data = await response.json();
+      console.log(data);
+      onClose(); // Fermer le modal après avoir soumis avec succès
+      } catch (error) {
+          setError(error.message); // En cas d'erreur, afficher le message d'erreur
+      }
   }
     return (
       <div 
@@ -48,6 +70,15 @@ function AddTaskModal({visible, onClose}) {
                     required
             />
           </div>
+          <div className="mb-4">
+                        <label className="block text-sm font-medium">Due Date</label>
+                        <input
+                            name='dueDate'
+                            className="form-input mt-1 block w-full border border-gray-400 rounded-md px-3 py-2"
+                            type="date"
+                            required
+                        />
+                    </div>
           <div className="mb-9">
               <label className="block text-sm font-medium">Status</label>
               <select 
@@ -56,10 +87,10 @@ function AddTaskModal({visible, onClose}) {
                 className="form-input mt-1 block w-full border border-gray-400 rounded-md px-3 py-2"
                 required
                 >
-                  <option value="incomplete">To Do</option>
-                  <option value="completed">Done</option>
-                  <option value="inReview">In review</option>
-                  <option value="backlog">Backlog</option>
+                  <option value="TODO">To Do</option>
+                  <option value="DONE">Done</option>
+                  <option value="INREVIEW">In review</option>
+                  <option value="BACKLOG">Backlog</option>
               </select>
           </div>
           <div className='flex justify-center'>

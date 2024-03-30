@@ -14,7 +14,7 @@ export default function Header() {
         <Link to={"/projects"}>Projects</Link>
         <Link to={"/whiteboard"}>WhiteBoard</Link>
 
-        <div className='mt-1'>
+        <div className='mt-1 absolute right-2'>
           <DropDown/>  
         </div> 
         
