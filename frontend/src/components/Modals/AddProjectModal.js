@@ -41,7 +41,7 @@ function AddProjectModal({visible, onClose}) {
           <div className="mb-4">
             <label className="block text-sm font-medium">Description</label>
             <textarea
-                	  name='ProjectDesc'
+                	name='ProjectDesc'
                     className="form-input mt-1 block w-full border border-gray-400 rounded-md px-3 py-2"               
                     type="text"
                     placeholder="Enter your Project description here"
@@ -56,9 +56,9 @@ function AddProjectModal({visible, onClose}) {
                 className="form-input mt-1 block w-full border border-gray-400 rounded-md px-3 py-2"
                 required
                 >
-                  <option value="incomplete">To Do</option>
-                  <option value="completed">Done</option>
-                  <option value="inProgress">In Progress</option>
+                  <option value="To Do">To Do</option>
+                  <option value="Done">Done</option>
+                  <option value="In Progress">In Progress</option>
               </select>
           </div>
           <div className='flex justify-center'>

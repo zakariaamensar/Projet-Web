@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import ProjectCard from '../components/ProjectCard'
 import AddProjectModal from '../components/Modals/AddProjectModal';
 import Header from '../components/Header/Header';
+import UpdateProjectModal from '../components/Modals/UpdateProjectModal';
 
 
 
 function Projects() {
     const [showMyAddModal, setShowMyAddModal] =useState(false);
+
 
     const [projects, setProjects] = useState([
         {
@@ -40,13 +42,11 @@ function Projects() {
         setProjects(projects.filter((_, idx) => idx !== targetIndex));
       };
     
-      const handleEditProject = (idx) => {
-  
-      };
+
     
   return (
 
-    <div>
+    <div className='mr-0'>
       <Header/>
       <div className='add-prjctANDsearch w-full pt-6 px-6 m-3 flex justify-between'>
         <div className='search'>
@@ -80,7 +80,7 @@ function Projects() {
             </tr>
           </thead>
           <tbody className='bg-gray-200'>
-                  <ProjectCard projects={filteredProjects} deleteProject={handleDeleteProject} editProject={handleEditProject}/>
+                  <ProjectCard projects={filteredProjects} deleteProject = {handleDeleteProject}/>
           </tbody>
         </table>
       </div>

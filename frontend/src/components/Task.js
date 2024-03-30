@@ -46,9 +46,6 @@ export default function Task({ task, index }) {
 
   const [showMyEditModal, setShowMyEditModal] =useState(false);
 
-  const handleToggleModal = () => {
-    setShowMyEditModal(!showMyEditModal);
-  };
   
     return (
 
