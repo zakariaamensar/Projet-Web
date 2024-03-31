@@ -15,6 +15,7 @@ import Cookies from "js-cookie";
 import {jwtDecode} from "jwt-decode"
 import { useNavigate } from "react-router";
 import { Navigate } from "react-router-dom";
+import SignUp from "./components/SignUp";
 
 const ProtectedRoute = ({ children }) => {
   const navigate=useNavigate();
@@ -46,6 +47,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Navigate to="/projects" />} />
         <Route exact path='/projects' element={<ProtectedRoute> <Projects/> </ProtectedRoute>}/>
         <Route exact path="/kanban/:projectId" element={<ProtectedRoute> <KanbanBoard/> </ProtectedRoute>}/>
